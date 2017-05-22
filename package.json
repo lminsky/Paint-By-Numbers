@@ -1,0 +1,17 @@
+{
+  "name": "Paint By Numbers",
+  "version": "0.0.2",
+  "description": "Use HTTP API calls to control the colors of squares on a grid",
+  "main": "index.js",
+  "author": "Louis Minsky",
+  "private": true,
+  "license": "BSD",
+  "dependencies": {
+    "express": "latest",
+    "socket.io": "latest",
+    "firebase": "latest"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
