@@ -1,9 +1,15 @@
 // Setup basic express server
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8181;
+var key = "Put a key here";
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 var size = 20;
 var rgb = [];
@@ -14,6 +20,37 @@ for(var i = 0; i < size*size; i++) {
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
+});
+
+app.post('/colors/:color', function(req, res) {
+  if(req.body.key == key) {
+    var color = req.params.color;
+    for(i in rgb) {
+      rgb[i] = color;
+    }
+    io.sockets.emit('connected', rgb);
+    res.send("Background Set");
+  } else {
+    res.send("Incorrect Key");
+  }
+});
+
+app.post('/size/:length', function(req, res) {
+  if(req.body.key == key) {
+    var length = req.params.length;
+    while(rgb.length != length*length) {
+      if(rgb.length > length*length) {
+        rgb.pop();
+      } else if(rgb.length < length*length) {
+        rgb.push("ffffff");
+      }
+    }
+    size = length;
+    io.sockets.emit('connected', rgb);
+    res.send("Size Changed");
+  } else {
+    res.send("Incorrect Key");
+  }
 });
 
 app.put('/', function(req, res) {

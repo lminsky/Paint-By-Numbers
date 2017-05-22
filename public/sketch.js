@@ -7,6 +7,7 @@ function setup() {
     createCanvas(windowWidth, windowWidth);
   } else {
     createCanvas(windowHeight, windowHeight);
+
   }
   background('#fff');
   noStroke();
@@ -32,7 +33,6 @@ function windowResized() {
   } else {
     resizeCanvas(windowHeight, windowHeight);
   }
-  background(200, 255, 200);
 }
 
 socket.on('connected', function (data) {
