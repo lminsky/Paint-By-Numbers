@@ -1,5 +1,6 @@
 var rgb = [];
 var d = 0;
+var showNumbers = false;
 socket = io();
 
 function setup() {
@@ -7,9 +8,9 @@ function setup() {
     createCanvas(windowWidth, windowWidth);
   } else {
     createCanvas(windowHeight, windowHeight);
+
   }
   background('#fff');
-  noStroke();
 }
 
 function draw() {
@@ -21,9 +22,20 @@ function draw() {
       var h = height/d;
       c = color("#" + rgb[index]);
       fill(c);
+      noStroke();
       rect(x * w, y * h, w, h);
+      if(showNumbers) {
+        console.log(brightness(c));
+        fill(128);
+        textSize(12);
+        text(index, x * w + 2, y * h + h - 2);
+      }
     }
   }
+}
+
+function mousePressed() {
+  showNumbers = !showNumbers;
 }
 
 function windowResized() {
@@ -32,7 +44,6 @@ function windowResized() {
   } else {
     resizeCanvas(windowHeight, windowHeight);
   }
-  background(200, 255, 200);
 }
 
 socket.on('connected', function (data) {
