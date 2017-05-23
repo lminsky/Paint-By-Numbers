@@ -83,7 +83,7 @@ Access to the API is rate limited. You may make 6 calls a minute.
 
 * **URL**
 
-  /api/size/:width
+  /admin/size/:width
 
 * **Method:**
 
@@ -107,7 +107,7 @@ Access to the API is rate limited. You may make 6 calls a minute.
 
 * **Sample Call:**
 
-  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/api/size/15`
+  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/admin/size/15`
 
 
 **Change All Colors**
@@ -116,7 +116,7 @@ Access to the API is rate limited. You may make 6 calls a minute.
 
 * **URL**
 
-  /api/colors/:hex
+  /admin/colors/:hex
 
 * **Method:**
 
@@ -140,5 +140,42 @@ Access to the API is rate limited. You may make 6 calls a minute.
 
 * **Sample Call:**
 
-  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/api/colors/ff00ff`
+  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/admin/colors/ff00ff`
+
+
+
+
+**Change Server Key**
+----
+  Update the server key
+
+* **URL**
+
+  /admin/key
+
+* **Method:**
+
+  `POST`
+
+* **Data Params**
+
+  **Required:**
+ 
+   `key=[old key]`
+   `new=[new key]`
+
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `Key Changed`
+ 
+* **Error Response:**
+
+  * **Code:** 403 <br />
+    **Content:** `FORBIDDEN`
+
+* **Sample Call:**
+
+  `curl -X POST --data "{"key":"oldKey","new":"newKey"}" http://pbn.minsky.co/admin/key/`
 

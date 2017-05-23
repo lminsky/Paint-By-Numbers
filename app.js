@@ -15,15 +15,17 @@ app.enable('trust proxy');
 
 var size = 20;
 var rgb = [];
+var minutes = 1;
+var numCalls = 6;
 
 var limiter = new RateLimit({
-  windowMs: 1*60*1000, // 15 minutes 
-  max: 6, // limit each IP to 100 requests per windowMs 
+  windowMs: minutes*60*1000, // 15 minutes 
+  max: numCalls, // limit each IP to 100 requests per windowMs 
   delayMs: 0 // disable delaying - full speed until the max limit is reached 
 });
  
 //  apply to all requests 
-app.use('/api/', limiter);
+var limit = app.use('/api/', limiter);
 
 for(var i = 0; i < size*size; i++) {
   rgb.push("ffffff");
@@ -33,7 +35,7 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
-app.post('/api/colors/:color', function(req, res) {
+app.post('/admin/colors/:color', function(req, res) {
   if(req.body.key == key) {
     var color = req.params.color;
     for(i in rgb) {
@@ -46,7 +48,7 @@ app.post('/api/colors/:color', function(req, res) {
   }
 });
 
-app.post('/api/size/:length', function(req, res) {
+app.post('/admin/size/:length', function(req, res) {
   if(req.body.key == key) {
     var length = req.params.length;
     while(rgb.length != length*length) {
@@ -59,6 +61,15 @@ app.post('/api/size/:length', function(req, res) {
     size = length;
     io.sockets.emit('connected', rgb);
     res.send("Size Changed");
+  } else {
+    res.status(403).send("Forbidden\n");
+  }
+});
+
+app.post('/admin/key', function(req, res) {
+  if(req.body.key == key) {
+    key = req.body.new
+    res.send("Key Changed");
   } else {
     res.status(403).send("Forbidden\n");
   }
@@ -95,19 +106,15 @@ app.put('/api/', function(req, res) {
 });
 
 app.get('/api/size/', function(req, res) {
-  res.send(rgb.length + "\n");
+  res.json({size: rgb.length});
+});
+
+app.get('/api/rate/', function(req, res) {
+  res.json({ minutes: minutes, calls: numCalls });
 });
 
 app.get('/api/colors/', function(req, res) {
-  var json = "{ \"squares\": [";
-  for(var i = 0; i < rgb.length; i++) {
-    json += "\"" + rgb[i] + "\"";
-    if(i < rgb.length-1) {
-      json += ",";
-    }
-  }
-  json += "]}";
-  return res.send(json);
+  res.json({squares: rgb});
 });
 
 app.get('/api/', function(req, res) {
