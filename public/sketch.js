@@ -25,7 +25,6 @@ function draw() {
       noStroke();
       rect(x * w, y * h, w, h);
       if(showNumbers) {
-        console.log(brightness(c));
         fill(128);
         textSize(12);
         text(index, x * w + 2, y * h + h - 2);
