@@ -5,7 +5,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 8181;
-var key = "Put a key here";
+var key = "Put Key Here";
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -29,9 +29,9 @@ app.post('/colors/:color', function(req, res) {
       rgb[i] = color;
     }
     io.sockets.emit('connected', rgb);
-    res.send("Background Set");
+    res.send("Colors Set");
   } else {
-    res.send("Incorrect Key");
+    res.status(403).send("Forbidden\n");
   }
 });
 
@@ -49,7 +49,7 @@ app.post('/size/:length', function(req, res) {
     io.sockets.emit('connected', rgb);
     res.send("Size Changed");
   } else {
-    res.send("Incorrect Key");
+    res.status(403).send("Forbidden\n");
   }
 });
 
@@ -80,11 +80,11 @@ app.put('/', function(req, res) {
     }
   }
   io.sockets.emit('connected', rgb);
-  return res.send(success + " successfull updates. " + error + " errors.");
+  return res.send(success + " successfull updates. " + error + " errors.\n");
 });
 
 app.get('/size/', function(req, res) {
-  res.send(rgb.length + "");
+  res.send(rgb.length + "\n");
 });
 
 app.get('/colors/', function(req, res) {
