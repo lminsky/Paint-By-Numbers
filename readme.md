@@ -1,4 +1,5 @@
-*Paint by Numbers*
+Paint by Numbers
+======
 
 **Get Size**
 ----
@@ -19,7 +20,7 @@
  
 * **Sample Call:**
 
-  curl http://pbn.minsky.co/size
+  `curl http://pbn.minsky.co/size`
 
 
 **Get Colors**
@@ -41,7 +42,7 @@
  
 * **Sample Call:**
 
-  curl http://pbn.minsky.co/colors
+  `curl http://pbn.minsky.co/colors`
 
 
 **Set Colors**
@@ -65,7 +66,7 @@
 
 * **Sample Call:**
 
-  curl -X PUT http://pbn.minsky.co/?25=ff00ff&32=00ffff&58=ffff00
+  `curl -X PUT http://pbn.minsky.co/?25=ff00ff&32=00ffff&58=ffff00`
 
 
 **Change Grid Size**
@@ -98,7 +99,7 @@
 
 * **Sample Call:**
 
-  curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/size/15
+  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/size/15`
 
 
 **Change All Colors**
@@ -131,5 +132,5 @@
 
 * **Sample Call:**
 
-  curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/colors/ff00ff
+  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/colors/ff00ff`
 
