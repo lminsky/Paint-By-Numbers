@@ -1,7 +1,9 @@
 Paint by Numbers
 ======
 
-See the grid [here](http://pbn.minsky.co)
+See the grid [here](http://pbn.minsky.co).
+
+Access to the API is rate limited. You may make 6 calls a minute.
 
 **Get Size**
 ----
