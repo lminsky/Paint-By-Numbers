@@ -6,13 +6,24 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 8181;
 var key = "Put Key Here";
+var RateLimit = require('express-rate-limit');
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.enable('trust proxy');
 
 var size = 20;
 var rgb = [];
+
+var limiter = new RateLimit({
+  windowMs: 1*60*1000, // 15 minutes 
+  max: 6, // limit each IP to 100 requests per windowMs 
+  delayMs: 0 // disable delaying - full speed until the max limit is reached 
+});
+ 
+//  apply to all requests 
+app.use('/api/', limiter);
 
 for(var i = 0; i < size*size; i++) {
   rgb.push("ffffff");
@@ -22,11 +33,7 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
-app.get('/api', function(req, res) {
-  res.redirect('https://lminsky.github.io/Paint-By-Numbers/');
-});
-
-app.post('/colors/:color', function(req, res) {
+app.post('/api/colors/:color', function(req, res) {
   if(req.body.key == key) {
     var color = req.params.color;
     for(i in rgb) {
@@ -39,7 +46,7 @@ app.post('/colors/:color', function(req, res) {
   }
 });
 
-app.post('/size/:length', function(req, res) {
+app.post('/api/size/:length', function(req, res) {
   if(req.body.key == key) {
     var length = req.params.length;
     while(rgb.length != length*length) {
@@ -57,7 +64,7 @@ app.post('/size/:length', function(req, res) {
   }
 });
 
-app.put('/', function(req, res) {
+app.put('/api/', function(req, res) {
   var query = req.query;
   var success = 0;
   var error = 0;
@@ -87,11 +94,11 @@ app.put('/', function(req, res) {
   return res.send(success + " successfull updates. " + error + " errors.\n");
 });
 
-app.get('/size/', function(req, res) {
+app.get('/api/size/', function(req, res) {
   res.send(rgb.length + "\n");
 });
 
-app.get('/colors/', function(req, res) {
+app.get('/api/colors/', function(req, res) {
   var json = "{ \"squares\": [";
   for(var i = 0; i < rgb.length; i++) {
     json += "\"" + rgb[i] + "\"";
@@ -101,6 +108,10 @@ app.get('/colors/', function(req, res) {
   }
   json += "]}";
   return res.send(json);
+});
+
+app.get('/api/', function(req, res) {
+  res.redirect('https://lminsky.github.io/Paint-By-Numbers/');
 });
 
 app.use(express.static(__dirname + '/public'));

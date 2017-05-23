@@ -9,7 +9,7 @@ See the grid [here](http://pbn.minsky.co)
 
 * **URL**
 
-  /size/
+  /api/size/
 
 * **Method:**
 
@@ -22,7 +22,7 @@ See the grid [here](http://pbn.minsky.co)
  
 * **Sample Call:**
 
-  `curl http://pbn.minsky.co/size`
+  `curl http://pbn.minsky.co/api/size`
 
 
 **Get Colors**
@@ -31,7 +31,7 @@ See the grid [here](http://pbn.minsky.co)
 
 * **URL**
 
-  /colors/
+  /api/colors/
 
 * **Method:**
 
@@ -44,12 +44,16 @@ See the grid [here](http://pbn.minsky.co)
  
 * **Sample Call:**
 
-  `curl http://pbn.minsky.co/colors`
+  `curl http://pbn.minsky.co/api/colors`
 
 
 **Set Colors**
 ----
   Modify the color of squares in the grid.
+
+* **URL**
+
+  /api/
 
 * **Method:**
 
@@ -68,7 +72,7 @@ See the grid [here](http://pbn.minsky.co)
 
 * **Sample Call:**
 
-  `curl -X PUT http://pbn.minsky.co/?25=ff00ff&32=00ffff&58=ffff00`
+  `curl -X PUT http://pbn.minsky.co/api/?25=ff00ff&32=00ffff&58=ffff00`
 
 
 **Change Grid Size**
@@ -77,7 +81,7 @@ See the grid [here](http://pbn.minsky.co)
 
 * **URL**
 
-  /size/:width
+  /api/size/:width
 
 * **Method:**
 
@@ -101,7 +105,7 @@ See the grid [here](http://pbn.minsky.co)
 
 * **Sample Call:**
 
-  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/size/15`
+  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/api/size/15`
 
 
 **Change All Colors**
@@ -110,7 +114,7 @@ See the grid [here](http://pbn.minsky.co)
 
 * **URL**
 
-  /colors/:hex
+  /api/colors/:hex
 
 * **Method:**
 
@@ -134,5 +138,5 @@ See the grid [here](http://pbn.minsky.co)
 
 * **Sample Call:**
 
-  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/colors/ff00ff`
+  `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/api/colors/ff00ff`
 
