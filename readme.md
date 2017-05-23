@@ -1,6 +1,8 @@
 Paint by Numbers
 ======
 
+See the grid [here](http://pbn.minsky.co)
+
 **Get Size**
 ----
   Fetches the width and height of the grid.
