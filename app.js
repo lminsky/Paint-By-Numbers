@@ -22,6 +22,10 @@ server.listen(port, function () {
   console.log('Server listening at port %d', port);
 });
 
+app.get('/api', function(req, res) {
+  res.redirect('https://lminsky.github.io/Paint-By-Numbers/');
+});
+
 app.post('/colors/:color', function(req, res) {
   if(req.body.key == key) {
     var color = req.params.color;
