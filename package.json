@@ -11,6 +11,7 @@
     "express": "latest",
     "express-rate-limit": "^2.8.0",
     "firebase": "latest",
+    "fs": "0.0.1-security",
     "socket.io": "latest"
   },
   "scripts": {

@@ -3,7 +3,7 @@ Paint by Numbers
 
 See the grid [here](http://pbn.minsky.co).
 
-Access to the API is rate limited. You may make 6 calls a minute.
+Access to the API is rate limited. Use the Get Rate Limit command below to find the current limit.
 
 **Get Size**
 ----
@@ -20,7 +20,7 @@ Access to the API is rate limited. You may make 6 calls a minute.
 * **Success Response:**
   
   * **Code:** 200 <br />
-    **Content:** `100`
+    **Content:** `{ "size": 100 }`
  
 * **Sample Call:**
 
@@ -47,6 +47,28 @@ Access to the API is rate limited. You may make 6 calls a minute.
 * **Sample Call:**
 
   `curl http://pbn.minsky.co/api/colors`
+
+
+**Get Rate Limit**
+----
+  Returns how many calls can be a time period.
+
+* **URL**
+
+  /api/rate/
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `{ "minutes": 1,"calls": 20 }`
+ 
+* **Sample Call:**
+
+  `curl http://pbn.minsky.co/api/rate`
 
 
 **Set Colors**

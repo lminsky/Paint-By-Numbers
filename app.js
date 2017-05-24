@@ -5,10 +5,12 @@ var app = express();
 var fs = require('fs');
 var server = require('http').createServer(app);
 var options = {
-
+  cert: fs.readFileSync('/Users/lminsky/Documents/GitHub/Paint-By-Numbers/sslcert/server.crt'),
+  key: fs.readFileSync('/Users/lminsky/Documents/GitHub/Paint-By-Numbers/sslcert/server.key')
 };
 var sslServer = require('https').createServer(options, app);
 var io = require('socket.io')(server);
+io.listen(sslServer);
 var port = process.env.PORT || 8181;
 var sslPort = 8143;
 var key = "Put Key Here";
