@@ -2,9 +2,15 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var fs = require('fs');
 var server = require('http').createServer(app);
+var options = {
+
+};
+var sslServer = require('https').createServer(options, app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 8181;
+var sslPort = 8143;
 var key = "Put Key Here";
 var RateLimit = require('express-rate-limit');
 
@@ -19,12 +25,12 @@ var minutes = 1;
 var numCalls = 6;
 
 var limiter = new RateLimit({
-  windowMs: minutes*60*1000, // 15 minutes 
-  max: numCalls, // limit each IP to 100 requests per windowMs 
-  delayMs: 0 // disable delaying - full speed until the max limit is reached 
+  windowMs: minutes*60*1000, // 15 minutes
+  max: numCalls, // limit each IP to 100 requests per windowMs
+  delayMs: 0 // disable delaying - full speed until the max limit is reached
 });
- 
-//  apply to all requests 
+
+//  apply to all requests
 var limit = app.use('/api/', limiter);
 
 for(var i = 0; i < size*size; i++) {
@@ -33,6 +39,10 @@ for(var i = 0; i < size*size; i++) {
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
+});
+
+sslServer.listen(sslPort, function () {
+  console.log('SSL Server listening at port %d', sslPort);
 });
 
 app.post('/admin/colors/:color', function(req, res) {
