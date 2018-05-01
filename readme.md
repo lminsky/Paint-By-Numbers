@@ -99,7 +99,7 @@ Access to the API is rate limited. Use the Get Rate Limit command below to find 
   `curl -X PUT http://pbn.minsky.co/api/?25=ff00ff&32=00ffff&58=ffff00`
 
 
-**Change Grid Size**
+**Set Grid Size**
 ----
   Resize the grid
 
@@ -132,7 +132,7 @@ Access to the API is rate limited. Use the Get Rate Limit command below to find 
   `curl -X POST --data "key=fja9h98h398h298fhs" http://pbn.minsky.co/admin/size/15`
 
 
-**Change All Colors**
+**Set All Colors**
 ----
   Set the color of every square on the grid simultaneously.
 
@@ -167,7 +167,7 @@ Access to the API is rate limited. Use the Get Rate Limit command below to find 
 
 
 
-**Change Server Key**
+**Set Server Key**
 ----
   Update the server key
 
